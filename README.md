@@ -1,6 +1,7 @@
 # Rainfall Forecasting with Machine Learning
 
 This project applies **time series analysis** and **machine learning techniques** to forecast **monthly rainfall** in Cameron Highlands, Malaysia.  
+
 Two models are developed and compared:
 
 - **Seasonal ARIMA (SARIMA)** – statistical time series model  
@@ -8,14 +9,10 @@ Two models are developed and compared:
 
 The study evaluates model performance using standard forecasting error metrics and identifies the most suitable approach for rainfall prediction.
 
----
-
 ## Objectives
 - Model historical rainfall data using **SARIMA** and **ANN**
 - Forecast future rainfall values
 - Compare statistical and machine learning approaches for time series forecasting
-
----
 
 ## Scope of Study
 - **Location:** Cameron Highlands, Peninsular Malaysia  
@@ -24,8 +21,6 @@ The study evaluates model performance using standard forecasting error metrics a
 - **Forecast Horizon:** 2020  
 
 Malaysia’s tropical climate and monsoon seasons introduce strong seasonality, making this a suitable case study for seasonal time series modeling.
-
----
 
 ## Dataset
 - **Source:** Provided by lecturer (academic dataset)
@@ -38,15 +33,11 @@ Malaysia’s tropical climate and monsoon seasons introduce strong seasonality, 
 | Training (In-sample) | Jan 2010 – Dec 2018 | 108 |
 | Testing (Out-sample) | Jan 2019 – Sep 2019 | 9 |
 
----
-
 ## Tools & Technologies
 - **Language:** R  
 - **Libraries:**  
   - `forecast`, `tseries`, `zoo`, `Metrics`  
   - `neuralnet`, `nnfor`, `monmlp`, `ggplot2`
-
----
 
 ## Exploratory Data Analysis
 **Descriptive Statistics (Cameron Highlands Rainfall):**
@@ -62,8 +53,6 @@ Malaysia’s tropical climate and monsoon seasons introduce strong seasonality, 
 | Kurtosis | 2.25 |
 
 The data exhibits **seasonality and non-stationarity**, consistent with monsoon-driven rainfall patterns.
-
----
 
 ## Model 1: SARIMA
 
@@ -89,8 +78,6 @@ Multiple SARIMA configurations were evaluated using **AIC** and **BIC**.
 
 The SARIMA model captures seasonal patterns but shows slightly higher forecast error.
 
----
-
 ## Model 2: Artificial Neural Network (ANN)
 
 ### Model Architecture
@@ -115,8 +102,6 @@ The SARIMA model captures seasonal patterns but shows slightly higher forecast e
 
 The ANN model demonstrates improved forecasting accuracy compared to SARIMA.
 
----
-
 ## Model Comparison
 
 | Model | RMSE | MAE | MAPE |
@@ -126,8 +111,6 @@ The ANN model demonstrates improved forecasting accuracy compared to SARIMA.
 
 **Final Selected Model: **Artificial Neural Network (ANN)**
 
----
-
 ## Conclusion
 Both SARIMA and ANN successfully modeled seasonal rainfall patterns. However, the **ANN model outperformed SARIMA** in forecasting accuracy, making it the preferred approach for rainfall prediction in Cameron Highlands.
 
@@ -135,8 +118,6 @@ This project demonstrates:
 - Time series preprocessing and stationarity analysis
 - Comparison of statistical and machine learning models
 - Model evaluation using industry-standard error metrics
-
----
 
 ## Future Improvements
 - Implement advanced deep learning models such as **LSTM** or **GRU**
