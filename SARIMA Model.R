@@ -34,63 +34,81 @@ adf.test(y, k = 12)
 BoxCox.lambda(y)
 
 # Seasonal differencing to remove annual seasonality
-y_diff <- diff(y, lag = 12)
-ggtsdisplay(y_diff)
+y <- diff(y, lag = 12, differences = 1)
+ggtsdisplay(y)
+data.frame(y)
+adf.test(y, k=12)
 
 # ------------------------------------------------------------
 # 3. SARIMA Model Selection
 # ------------------------------------------------------------
 # Compare multiple SARIMA configurations using AIC and BIC
 
-fit_0010 <- Arima(y, order = c(0,0,0),
+fits1 <- Arima(y, order = c(0,0,0),
                   seasonal = list(order = c(0,1,0), period = 12))
 
-fit_0011 <- Arima(y, order = c(0,0,0),
+AIC(fits1)
+BIC(fits1)
+
+fits2 <- Arima(y, order = c(0,0,0),
                   seasonal = list(order = c(0,1,1), period = 12))
 
-fit_0110 <- Arima(y, order = c(0,0,0),
+AIC(fits2)
+BIC(fits2)
+
+fits3 <- Arima(y, order = c(0,0,0),
                   seasonal = list(order = c(1,1,0), period = 12))
 
-fit_0111 <- Arima(y, order = c(0,0,0),
+AIC(fits3)
+BIC(fits3)
+
+fits4 <- Arima(y, order = c(0,0,0),
                   seasonal = list(order = c(1,1,1), period = 12))
 
-fit_0210 <- Arima(y, order = c(0,0,0),
+AIC(fits4)
+BIC(fits4)
+
+fits5 <- Arima(y, order = c(0,0,0),
                   seasonal = list(order = c(2,1,0), period = 12))
 
-fit_final <- Arima(y, order = c(0,0,0),
-                   seasonal = list(order = c(2,1,1), period = 12))
-
-AIC(fit_final)
-BIC(fit_final)
+AIC(fits5)
+BIC(fits5)
 
 # ------------------------------------------------------------
 # 4. Model Diagnostics
 # ------------------------------------------------------------
 # Plot fitted values against actual data
-autoplot(y) +
-  autolayer(fitted(fit_final), series = "Fitted", color = "red")
+plot(y)
+lines(fitted(fits5,col="red")
 
 # Error metrics (in-sample)
-rmse(y, fitted(fit_final))
-mae(y, fitted(fit_final))
-mape(y, fitted(fit_final))
+rmse(y, fitted(fits5))
+mae(y, fitted(fits5))
+mape(y, fitted(fits5))
 
 # Residual independence check
-Box.test(fit_final$residuals, type = "Ljung")
-tsdiag(fit_final)
+Box.test(fits5$residuals, type = "Ljung")
+tsdiag(fits5)
 
 # ------------------------------------------------------------
 # 5. Forecasting
 # ------------------------------------------------------------
 # Forecast next 9 months (out-of-sample)
-forecast_sarima <- forecast(fit_final, h = 9)
-autoplot(forecast_sarima)
-
+forecast <- forecast(fits5, h = 9)
+autoplot(forecast)
+forecast
+      
 # ------------------------------------------------------------
 # 6. Compare Forecast with Actual Values
 # ------------------------------------------------------------
-actual <- c(107.8, 19.4, 111.2, 181.0, 273.8, 155.8, 125.6, 154.4, 111.2)
+actual <- c(198.4083, 257.9578, 203.3523, 333.5484, 283.1853, 291.672, 257.7136, 240.4231, 179.3909))
 
-rmse(actual, forecast_sarima$mean)
-mae(actual, forecast_sarima$mean)
-mape(actual, forecast_sarima$mean)
+rmse(actual, forecast)
+mae(actual, forecast)
+mape(actual, forecast)
+
+actualsarima = ts(data, start=2010, frequency=12)
+plot(actualsarima)
+predsarima = ts(predicted2, start=2019, frequency=12)
+lines(predsarima, col="blue")
+
